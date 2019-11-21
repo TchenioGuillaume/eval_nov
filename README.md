@@ -1,45 +1,26 @@
-# electron-quick-start
-
-**Clone and run for a quick way to see Electron in action.**
-
-This is a minimal Electron application based on the [Quick Start Guide](https://electronjs.org/docs/tutorial/quick-start) within the Electron documentation.
-
-**Use this app along with the [Electron API Demos](https://electronjs.org/#get-started) app for API code examples to help you get started.**
-
-A basic Electron application needs just these files:
-
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
-
-You can learn more about each of these components within the [Quick Start Guide](https://electronjs.org/docs/tutorial/quick-start).
-
-## To Use
-
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
-```bash
-# Clone this repository
-git clone https://github.com/electron/electron-quick-start
-# Go into the repository
-cd electron-quick-start
-# Install dependencies
-npm install
-# Run the app
+# Run the app with npm or vscode
 npm start
-```
 
-Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
+# Packaging
+### 1. Create a 512px,512px desktop png icon file
 
-## Resources for Learning Electron
+### 2. Upload the png file to https://iconverticons.com/online/
+Get the app.icns file (Mac),
+the app.ico file (Windows),
+the app.png file (Linux)
+Copy all the 3 file in the root of the project : /app.ico, ./app.icns, ./app.png
 
-- [electronjs.org/docs](https://electronjs.org/docs) - all of Electron's documentation
-- [electronjs.org/community#boilerplates](https://electronjs.org/community#boilerplates) - sample starter apps created by the community
-- [electron/electron-quick-start](https://github.com/electron/electron-quick-start) - a very basic starter Electron app
-- [electron/simple-samples](https://github.com/electron/simple-samples) - small applications with ideas for taking them further
-- [electron/electron-api-demos](https://github.com/electron/electron-api-demos) - an Electron app that teaches you how to use Electron
-- [hokein/electron-sample-apps](https://github.com/hokein/electron-sample-apps) - small demo apps for the various Electron APIs
+### 3. Use electron-packager (a community tool to avoid building all) and rimraf (clean the directory when building multiple times) :
+npm i electron-packager rimraf -D
 
-## License
+### 4. In package.json, --plateform Mac, Windows, Linux. --arch 62b architecture. --icon is the name of the icon used.
+### All options are here : https://github.com/electron-userland/electron-packager/blob/master/usage.txt
+"scripts": {
+    "build": "rimraf git-checker-* && electron-packager . --platform=darwin,linux,win32 --arch=x64 --icon=app --overwrite",
+	"start": "electron ."
+}
 
-[CC0 1.0 (Public Domain)](LICENSE.md)
+### 5. Run the followinf command in administrator mode. This will create 3 directory, one for each plateform with executables inside. Ex: 'git-checker-win32-x64'.
+npm run build
+
+### 6. Test the programm on all OS with Virtual box VMs.
